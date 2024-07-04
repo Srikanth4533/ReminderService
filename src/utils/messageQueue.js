@@ -1,5 +1,7 @@
 const amqplib = require("amqplib")
 
+const { MESSAGE_BROKER_URL, EXCHANGE_NAME } = require("../config/serverConfig")
+
 const createChannel = async () => {
     try {
         const connection = await amqplib.connect(MESSAGE_BROKER_URL)
@@ -12,7 +14,7 @@ const createChannel = async () => {
 }
 
 const subscribeMessage = async (channel, service, binding_key) => {
-    const applicationQueue = await channel.assertQueue(QUEUE_NAME)
+    const applicationQueue = await channel.assertQueue('QUEUE_NAME')
 
     channel.bindQueue(applicationQueue.queue, EXCHANGE_NAME, binding_key)
 
